@@ -17,12 +17,14 @@ class Day1SonarSweepTest
 {
     @ParameterizedTest
     @CsvSource({
-            "day-1-control.txt, 7",
-            "day-1-input.txt, 1791",
+            "day-1-control.txt, 7, 1",
+            "day-1-input.txt, 1791, 1",
+            "day-1-control.txt, 5, 3",
+            "day-1-input.txt, 1822, 3",
     })
-    void testGetDepthIncreaseCount(String resourceName, int count) throws URISyntaxException, IOException
+    void testGetDepthIncreaseCount(String resourceName, int count, int windowSize) throws URISyntaxException, IOException
     {
-        int depthIncreaseCount = new Day1SonarSweep().getDepthIncreaseCount(getMeasurements(resourceName));
+        int depthIncreaseCount = new Day1SonarSweep().getDepthIncreaseCount(getMeasurements(resourceName), windowSize);
         assertThat(depthIncreaseCount).isEqualTo(count);
     }
 
