@@ -25,6 +25,16 @@ class Day3BinaryDiagnosticsTest
         int powerConsumption = new Day3BinaryDiagnostics().calculatePowerConsumption(getReport(resourceName));
         assertThat(powerConsumption).isEqualTo(multipliedValues);
     }
+    @ParameterizedTest
+    @CsvSource({
+            "day-3-control.txt, 230",
+            "day-3-input.txt, 4432698",
+    })
+    void testGetLifeSupportValue(String resourceName, int multipliedValues) throws URISyntaxException, IOException
+    {
+        int lifeSupport = new Day3BinaryDiagnostics().getLifeSupportRating(getReport(resourceName));
+        assertThat(lifeSupport).isEqualTo(multipliedValues);
+    }
 
     @SuppressWarnings("ConstantConditions")
     private List<String> getReport(String resourceName) throws URISyntaxException, IOException
