@@ -2,6 +2,9 @@ package com.debuggingsuccess.aoc;
 
 import java.util.List;
 
+/**
+ * @see <a href="https://adventofcode.com/2021/day/2">https://adventofcode.com/2021/day/2</>
+ */
 public class Day2Dive
 {
     /**
