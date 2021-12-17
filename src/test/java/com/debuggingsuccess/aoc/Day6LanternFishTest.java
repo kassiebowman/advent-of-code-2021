@@ -17,11 +17,13 @@ class Day6LanternFishTest
     @CsvSource({
             "day-6-control.txt, 18, 26",
             "day-6-control.txt, 80, 5934",
-            "day-6-input.txt, 80, 363101"
+            "day-6-control.txt, 256, 26984457539",
+            "day-6-input.txt, 80, 363101",
+            "day-6-input.txt, 256, 1644286074024"
     })
-    void testSimulate(String resourceName, int days, int count) throws URISyntaxException, IOException
+    void testSimulate(String resourceName, int days, long count) throws URISyntaxException, IOException
     {
-        int fishCount = new Day6LanternFish().simulate(getInput(resourceName), days);
+        long fishCount = new Day6LanternFish().simulate(getInput(resourceName), days);
         assertThat(fishCount).isEqualTo(count);
     }
 
