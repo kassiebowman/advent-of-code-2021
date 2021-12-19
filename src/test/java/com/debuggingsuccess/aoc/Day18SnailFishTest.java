@@ -27,9 +27,19 @@ class Day18SnailFishTest
             "day-18-control.txt, 4140",
             "day-18-input.txt, 3734",
     })
-    void testAdd(String resourceName, int magnitude) throws URISyntaxException, IOException
+    void testAddAll(String resourceName, int magnitude) throws URISyntaxException, IOException
     {
-        long result = new Day18SnailFish().add(getNumberStrings(resourceName));
+        long result = new Day18SnailFish().addAll(getNumberStrings(resourceName));
+        assertThat(result).isEqualTo(magnitude);
+    }
+    @ParameterizedTest
+    @CsvSource({
+            "day-18-control.txt, 3993",
+            "day-18-input.txt, 4837",
+    })
+    void testAddMax(String resourceName, int magnitude) throws URISyntaxException, IOException
+    {
+        long result = new Day18SnailFish().findMaxAdd(getNumberStrings(resourceName));
         assertThat(result).isEqualTo(magnitude);
     }
 

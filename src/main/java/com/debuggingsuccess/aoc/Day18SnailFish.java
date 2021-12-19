@@ -1,5 +1,6 @@
 package com.debuggingsuccess.aoc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Day18SnailFish
@@ -10,7 +11,7 @@ public class Day18SnailFish
      * @param snailNumStrings The strings representing the snail numbers
      * @return The magnitude of the resulting tree
      */
-    public int add(List<String> snailNumStrings)
+    public int addAll(List<String> snailNumStrings)
     {
         Node rootNode = parse(snailNumStrings.remove(0));
         for (String snailNumString : snailNumStrings)
@@ -21,6 +22,39 @@ public class Day18SnailFish
         }
 
         return calculateMagnitude(rootNode);
+    }
+
+    /**
+     * Finds the maximum value achieved from adding any two values in the provided list.
+     *
+     * @param snailNumStrings The strings representing the snail numbers
+     * @return The magnitude of the maximum addition.
+     */
+    public int findMaxAdd(List<String> snailNumStrings)
+    {
+        List<Node> numberTrees = new ArrayList<>();
+        for (String snailNumString : snailNumStrings)
+        {
+            numberTrees.add(parse(snailNumString));
+        }
+
+        int maxSum = -1;
+        int size = numberTrees.size();
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                if (i == j) continue;
+                
+                // Make copies to avoid modifying the original parsed values.
+                Node rootNode = add(new Node(numberTrees.get(i)), new Node(numberTrees.get(j)));
+                reduce(rootNode);
+                int sum = calculateMagnitude(rootNode);
+                if (sum > maxSum) maxSum = sum;
+            }
+        }
+
+        return maxSum;
     }
 
     private Node parse(String numString)
@@ -188,6 +222,26 @@ public class Day18SnailFish
         Node left = null;
         Node right = null;
         int value = -1;
+
+        /**
+         * Copy constructor
+         * @param source The node to copy
+         */
+        public Node(Node source)
+        {
+            value = source.value;
+            if (source.left != null)
+            {
+                left = new Node(source.left);
+                left.parent = this;
+            }
+
+            if (source.right != null)
+            {
+                right = new Node(source.right);
+                right.parent = this;
+            }
+        }
 
         public Node(Node left, Node right)
         {
